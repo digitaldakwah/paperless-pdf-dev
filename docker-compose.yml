@@ -2,12 +2,12 @@
 # 📚 PAPERLESS PDF VIEWER - DEV ENVIRONMENT
 # Minimal & Lightweight Development Stack
 # =====================================
-# 
+#
 # Purpose: Interactive PDF.js Development
 # Services: 5 containers (minimal stack)
 # Size: ~2GB total (vs 7GB+ production)
 # Port: 8003 (avoid conflicts)
-# 
+#
 # Usage:
 #   docker compose up --build
 #   Access: http://localhost:8003
@@ -52,12 +52,12 @@ services:
   # GOTENBERG (PDF Processing)
   # =====================================
   gotenberg:
-    image: gotenberg/gotenberg:8-cloudron
+    image: gotenberg/gotenberg:8
     container_name: paperless-pdf-gotenberg
     restart: unless-stopped
     command:
       - "gotenberg"
-      - "--chromium-disable-javascript=false"  # Enable JS for interactive PDFs
+      - "--chromium-disable-javascript=false" # Enable JS for interactive PDFs
       - "--chromium-allow-list=file:///tmp/.*"
       - "--api-timeout=120s"
     deploy:
@@ -105,14 +105,14 @@ services:
       - media:/usr/src/paperless/media
       - ./consume:/usr/src/paperless/consume
       - ./export:/usr/src/paperless/export
-      
+
       # PDF.js Development (Hot-reload volumes)
       - ./pdfjs-custom:/usr/src/paperless/pdfjs-dev:rw
       - ./config/pdf-viewer-config.js:/usr/src/paperless/static-custom/pdf-config.js:ro
-      
+
       # Custom assets (optional)
       - ./assets:/usr/src/paperless/custom-assets:rw
-      
+
     environment:
       # Database
       PAPERLESS_REDIS: redis://broker:6379
@@ -121,43 +121,43 @@ services:
       PAPERLESS_DBNAME: paperless
       PAPERLESS_DBUSER: paperless
       PAPERLESS_DBPASS: paperless
-      
+
       # Tika & Gotenberg
       PAPERLESS_TIKA_ENABLED: 1
       PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
       PAPERLESS_TIKA_ENDPOINT: http://tika:9998
-      
+
       # Development Settings
       PAPERLESS_DEBUG: "true"
       PAPERLESS_SECRET_KEY: "dev-secret-key-change-in-production"
       PAPERLESS_ALLOWED_HOSTS: "*"
       PAPERLESS_CORS_ALLOWED_HOSTS: "http://localhost:8003,http://127.0.0.1:8003"
-      
+
       # OCR (minimal - English only)
       PAPERLESS_OCR_LANGUAGE: eng
-      PAPERLESS_OCR_MODE: skip  # Skip OCR for faster testing
-      
+      PAPERLESS_OCR_MODE: skip # Skip OCR for faster testing
+
       # PDF.js Interactive Features
       PAPERLESS_PDF_ENABLE_AUDIO: "true"
       PAPERLESS_PDF_ENABLE_JAVASCRIPT: "true"
       PAPERLESS_PDF_ENABLE_HYPERLINKS: "true"
       PAPERLESS_PDF_INTERACTIVE_MODE: "true"
-      
+
       # Performance (development)
       PAPERLESS_TASK_WORKERS: 1
       PAPERLESS_THREADS_PER_WORKER: 1
       PAPERLESS_ENABLE_COMPRESSION: "false"
       PAPERLESS_TIME_ZONE: UTC
-      
+
       # Security (relaxed for dev)
       PAPERLESS_COOKIE_PREFIX: paperless_pdf_dev
       PAPERLESS_ENABLE_HTTP_REMOTE_USER: "false"
-      
+
       # Admin account
       PAPERLESS_ADMIN_USER: admin
       PAPERLESS_ADMIN_PASSWORD: admin
       PAPERLESS_ADMIN_MAIL: admin@localhost
-      
+
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8000/api/"]
       interval: 30s
@@ -184,7 +184,6 @@ volumes:
 networks:
   default:
     name: paperless-pdf-dev-network
-
 # =====================================
 # SYSTEM SPECIFICATIONS
 # =====================================

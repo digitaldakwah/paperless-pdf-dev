@@ -20,7 +20,7 @@
     "editor.minimap.enabled": true,
     "editor.bracketPairColorization.enabled": true,
     "editor.guides.bracketPairs": true,
-    
+
     // File Settings
     "files.autoSave": "afterDelay",
     "files.autoSaveDelay": 1000,
@@ -44,7 +44,7 @@
       "Dockerfile*": "dockerfile",
       "*.mjs": "javascript"
     },
-    
+
     // Docker Settings
     "docker.dockerComposeBuild": true,
     "docker.dockerComposeDetached": true,
@@ -52,7 +52,7 @@
     "docker.commands.build": "docker compose build --no-cache",
     "docker.commands.up": "docker compose up -d",
     "docker.commands.down": "docker compose down",
-    
+
     // JavaScript/TypeScript Settings
     "[javascript]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -70,7 +70,7 @@
     "[jsonc]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode"
     },
-    
+
     // Python Settings
     "[python]": {
       "editor.defaultFormatter": "ms-python.black-formatter",
@@ -83,7 +83,7 @@
     "python.linting.pylintEnabled": true,
     "python.formatting.provider": "black",
     "python.analysis.typeCheckingMode": "basic",
-    
+
     // Markdown Settings
     "[markdown]": {
       "editor.defaultFormatter": "esbenp.prettier-vscode",
@@ -95,7 +95,7 @@
       }
     },
     "markdown.preview.fontSize": 14,
-    
+
     // YAML Settings (Docker Compose)
     "[yaml]": {
       "editor.defaultFormatter": "redhat.vscode-yaml",
@@ -106,23 +106,20 @@
         "docker-compose*.yml"
       ]
     },
-    "yaml.customTags": [
-      "!encrypted/pkcs1-oaep scalar",
-      "!vault scalar"
-    ],
-    
+    "yaml.customTags": ["!encrypted/pkcs1-oaep scalar", "!vault scalar"],
+
     // Shell Script Settings
     "[shellscript]": {
       "editor.defaultFormatter": "foxundermoon.shell-format"
     },
     "shellformat.useEditorConfig": true,
-    
+
     // Git Settings
     "git.enableSmartCommit": true,
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.defaultCloneDirectory": "${workspaceFolder}/../",
-    
+
     // Terminal Settings
     "terminal.integrated.defaultProfile.linux": "bash",
     "terminal.integrated.fontSize": 13,
@@ -130,7 +127,7 @@
     "terminal.integrated.env.linux": {
       "COMPOSE_FILE": "docker-compose.yml"
     },
-    
+
     // Search Settings
     "search.exclude": {
       "**/data": true,
@@ -139,7 +136,7 @@
       "**/.git": true,
       "**/pdfjs-custom/backup": true
     },
-    
+
     // Explorer Settings
     "explorer.confirmDelete": true,
     "explorer.confirmDragAndDrop": false,
@@ -151,7 +148,7 @@
       "README.md": "CHANGELOG.md, LICENSE, .gitignore",
       "package.json": "package-lock.json, yarn.lock, .npmrc"
     },
-    
+
     // ESLint Settings
     "eslint.validate": [
       "javascript",
@@ -164,14 +161,14 @@
         "mode": "auto"
       }
     ],
-    
+
     // Prettier Settings
     "prettier.singleQuote": true,
     "prettier.trailingComma": "es5",
     "prettier.tabWidth": 2,
     "prettier.semi": true,
     "prettier.printWidth": 100,
-    
+
     // Todo Tree Settings (for TODO comments)
     "todo-tree.general.tags": [
       "TODO",
@@ -183,24 +180,24 @@
       "OPTIMIZE"
     ],
     "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
-    
+
     // GitLens Settings
     "gitlens.codeLens.enabled": true,
     "gitlens.currentLine.enabled": true,
     "gitlens.hovers.currentLine.over": "line",
-    
+
     // PDF.js Development Specific
     "javascript.suggest.names": true,
     "javascript.suggest.paths": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
-    
+
     // Docker Container Development
     "remote.containers.defaultExtensions": [
       "ms-python.python",
       "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode"
     ],
-    
+
     // Spell Checker
     "cSpell.words": [
       "paperless",
@@ -218,91 +215,90 @@
     ],
     "cSpell.enabled": true,
     "cSpell.language": "en,en-US",
-    
+
     // Live Server (for testing static HTML)
     "liveServer.settings.port": 5500,
     "liveServer.settings.root": "/",
     "liveServer.settings.CustomBrowser": "chrome",
-    
+
     // Error Lens
-    "errorLens.enabledDiagnosticLevels": [
-      "error",
-      "warning"
-    ],
-    "errorLens.excludeBySource": [
-      "eslint(prettier/prettier)"
-    ]
+    "errorLens.enabledDiagnosticLevels": ["error", "warning"],
+    "errorLens.excludeBySource": ["eslint(prettier/prettier)"],
+    "containers.commands.build": "docker compose build --no-cache",
+    "containers.truncateLongRegistryPaths": false,
+    "containers.composeBuild": true,
+    "containers.composeDetached": true
   },
   "extensions": {
     "recommendations": [
       // Docker Development
       "ms-azuretools.vscode-docker",
       "ms-vscode-remote.remote-containers",
-      
+
       // JavaScript/TypeScript
       "dbaeumer.vscode-eslint",
       "esbenp.prettier-vscode",
       "xabikos.javascriptsnippets",
       "formulahendry.auto-rename-tag",
       "bradlc.vscode-tailwindcss",
-      
+
       // Python (for Paperless backend)
       "ms-python.python",
       "ms-python.vscode-pylance",
       "ms-python.black-formatter",
       "ms-python.isort",
-      
+
       // Git
       "eamodio.gitlens",
       "mhutchie.git-graph",
       "donjayamanne.githistory",
-      
+
       // YAML/Config
       "redhat.vscode-yaml",
       "tamasfe.even-better-toml",
-      
+
       // Markdown
       "yzhang.markdown-all-in-one",
       "davidanson.vscode-markdownlint",
       "bierner.markdown-preview-github-styles",
-      
+
       // Shell Scripts
       "foxundermoon.shell-format",
       "timonwong.shellcheck",
-      
+
       // Productivity
       "gruntfuggly.todo-tree",
       "streetsidesoftware.code-spell-checker",
       "usernamehw.errorlens",
       "wayou.vscode-todo-highlight",
-      
+
       // PDF/Document Viewing
       "tomoki1207.pdf",
-      
+
       // Live Server (testing)
       "ritwickdey.liveserver",
-      
+
       // Code Quality
       "sonarsource.sonarlint-vscode",
       "editorconfig.editorconfig",
-      
+
       // GitHub
       "github.vscode-pull-request-github",
       "github.copilot",
       "github.copilot-chat",
-      
+
       // REST API Testing
       "humao.rest-client",
-      
+
       // JSON
       "eriklynd.json-tools",
-      
+
       // Color Picker
       "anseki.vscode-color",
-      
+
       // Path Intellisense
       "christian-kohler.path-intellisense",
-      
+
       // File Icons
       "vscode-icons-team.vscode-icons"
     ]

@@ -1,0 +1,223 @@
+# =====================================
+# 📚 PAPERLESS PDF VIEWER - DEV ENVIRONMENT
+# Minimal & Lightweight Development Stack
+# =====================================
+# 
+# Purpose: Interactive PDF.js Development
+# Services: 5 containers (minimal stack)
+# Size: ~2GB total (vs 7GB+ production)
+# Port: 8003 (avoid conflicts)
+# 
+# Usage:
+#   docker compose up --build
+#   Access: http://localhost:8003
+# =====================================
+
+services:
+  # =====================================
+  # POSTGRESQL (Alpine - Minimal)
+  # =====================================
+  db:
+    image: postgres:17-alpine
+    container_name: paperless-pdf-db
+    restart: unless-stopped
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_DB: paperless
+      POSTGRES_USER: paperless
+      POSTGRES_PASSWORD: paperless
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U paperless"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =====================================
+  # REDIS (Alpine - Minimal)
+  # =====================================
+  broker:
+    image: redis:8-alpine
+    container_name: paperless-pdf-broker
+    restart: unless-stopped
+    volumes:
+      - redisdata:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # =====================================
+  # GOTENBERG (PDF Processing)
+  # =====================================
+  gotenberg:
+    image: gotenberg/gotenberg:8-cloudron
+    container_name: paperless-pdf-gotenberg
+    restart: unless-stopped
+    command:
+      - "gotenberg"
+      - "--chromium-disable-javascript=false"  # Enable JS for interactive PDFs
+      - "--chromium-allow-list=file:///tmp/.*"
+      - "--api-timeout=120s"
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # =====================================
+  # TIKA (Document Parsing)
+  # =====================================
+  tika:
+    image: apache/tika:3.0.0-full
+    container_name: paperless-pdf-tika
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 512M
+
+  # =====================================
+  # PAPERLESS-NGX (PDF Viewer Dev)
+  # =====================================
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: development
+    image: paperless-pdf-dev:latest
+    container_name: paperless-pdf-webserver
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+      broker:
+        condition: service_healthy
+      gotenberg:
+        condition: service_started
+      tika:
+        condition: service_started
+    ports:
+      - "8003:8000"
+    volumes:
+      # Data persistence
+      - data:/usr/src/paperless/data
+      - media:/usr/src/paperless/media
+      - ./consume:/usr/src/paperless/consume
+      - ./export:/usr/src/paperless/export
+      
+      # PDF.js Development (Hot-reload volumes)
+      - ./pdfjs-custom:/usr/src/paperless/pdfjs-dev:rw
+      - ./config/pdf-viewer-config.js:/usr/src/paperless/static-custom/pdf-config.js:ro
+      
+      # Custom assets (optional)
+      - ./assets:/usr/src/paperless/custom-assets:rw
+      
+    environment:
+      # Database
+      PAPERLESS_REDIS: redis://broker:6379
+      PAPERLESS_DBHOST: db
+      PAPERLESS_DBPORT: 5432
+      PAPERLESS_DBNAME: paperless
+      PAPERLESS_DBUSER: paperless
+      PAPERLESS_DBPASS: paperless
+      
+      # Tika & Gotenberg
+      PAPERLESS_TIKA_ENABLED: 1
+      PAPERLESS_TIKA_GOTENBERG_ENDPOINT: http://gotenberg:3000
+      PAPERLESS_TIKA_ENDPOINT: http://tika:9998
+      
+      # Development Settings
+      PAPERLESS_DEBUG: "true"
+      PAPERLESS_SECRET_KEY: "dev-secret-key-change-in-production"
+      PAPERLESS_ALLOWED_HOSTS: "*"
+      PAPERLESS_CORS_ALLOWED_HOSTS: "http://localhost:8003,http://127.0.0.1:8003"
+      
+      # OCR (minimal - English only)
+      PAPERLESS_OCR_LANGUAGE: eng
+      PAPERLESS_OCR_MODE: skip  # Skip OCR for faster testing
+      
+      # PDF.js Interactive Features
+      PAPERLESS_PDF_ENABLE_AUDIO: "true"
+      PAPERLESS_PDF_ENABLE_JAVASCRIPT: "true"
+      PAPERLESS_PDF_ENABLE_HYPERLINKS: "true"
+      PAPERLESS_PDF_INTERACTIVE_MODE: "true"
+      
+      # Performance (development)
+      PAPERLESS_TASK_WORKERS: 1
+      PAPERLESS_THREADS_PER_WORKER: 1
+      PAPERLESS_ENABLE_COMPRESSION: "false"
+      PAPERLESS_TIME_ZONE: UTC
+      
+      # Security (relaxed for dev)
+      PAPERLESS_COOKIE_PREFIX: paperless_pdf_dev
+      PAPERLESS_ENABLE_HTTP_REMOTE_USER: "false"
+      
+      # Admin account
+      PAPERLESS_ADMIN_USER: admin
+      PAPERLESS_ADMIN_PASSWORD: admin
+      PAPERLESS_ADMIN_MAIL: admin@localhost
+      
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 60s
+
+# =====================================
+# VOLUMES
+# =====================================
+volumes:
+  data:
+    name: paperless-pdf-data
+  media:
+    name: paperless-pdf-media
+  pgdata:
+    name: paperless-pdf-pgdata
+  redisdata:
+    name: paperless-pdf-redisdata
+
+# =====================================
+# NETWORKS (Optional)
+# =====================================
+networks:
+  default:
+    name: paperless-pdf-dev-network
+
+# =====================================
+# SYSTEM SPECIFICATIONS
+# =====================================
+#
+# Container Sizes (Optimized):
+# - webserver: ~800MB (dev tools included)
+# - db: ~240MB (Alpine PostgreSQL)
+# - broker: ~40MB (Alpine Redis)
+# - gotenberg: ~400MB
+# - tika: ~500MB
+# Total: ~2GB (75% reduction vs production)
+#
+# Services Removed (from full Paperless-AI):
+# - paperless-ai (3.5GB) - AI/RAG not needed for PDF dev
+# - paperless-ai-rag (1.8GB) - RAG not needed
+# - Additional language support (kept minimal)
+#
+# Development Features:
+# - Hot-reload: Edit ./pdfjs-custom/ files
+# - No rebuilds: Volume-mounted configuration
+# - Fast startup: Minimal services only
+# - PDF.js focus: Interactive viewer customization
+#
+# Access:
+# - Web UI: http://localhost:8003
+# - API: http://localhost:8003/api/
+# - Admin: admin/admin (development only)
+#
+# Quick Commands:
+#   Start: docker compose up -d
+#   Logs: docker compose logs -f webserver
+#   Shell: docker compose exec webserver bash
+#   Stop: docker compose down
+#   Clean: docker compose down -v
+#
+# =====================================

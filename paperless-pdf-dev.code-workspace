@@ -1,0 +1,471 @@
+{
+  "folders": [
+    {
+      "name": "📚 Paperless PDF Viewer Dev",
+      "path": "."
+    }
+  ],
+  "settings": {
+    // Editor Settings
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": false,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit",
+      "source.organizeImports": "explicit"
+    },
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true,
+    "editor.rulers": [80, 120],
+    "editor.wordWrap": "on",
+    "editor.minimap.enabled": true,
+    "editor.bracketPairColorization.enabled": true,
+    "editor.guides.bracketPairs": true,
+    
+    // File Settings
+    "files.autoSave": "afterDelay",
+    "files.autoSaveDelay": 1000,
+    "files.exclude": {
+      "**/.git": true,
+      "**/__pycache__": true,
+      "**/*.pyc": true,
+      "**/node_modules": true,
+      "**/data": true,
+      "**/export": true,
+      "**/consume": true,
+      "**/.DS_Store": true
+    },
+    "files.watcherExclude": {
+      "**/data/**": true,
+      "**/export/**": true,
+      "**/pdfjs-custom/backup/**": true
+    },
+    "files.associations": {
+      "docker-compose*.yml": "dockercompose",
+      "Dockerfile*": "dockerfile",
+      "*.mjs": "javascript"
+    },
+    
+    // Docker Settings
+    "docker.dockerComposeBuild": true,
+    "docker.dockerComposeDetached": true,
+    "docker.truncateLongRegistryPaths": false,
+    "docker.commands.build": "docker compose build --no-cache",
+    "docker.commands.up": "docker compose up -d",
+    "docker.commands.down": "docker compose down",
+    
+    // JavaScript/TypeScript Settings
+    "[javascript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.formatOnSave": true
+    },
+    "[javascriptreact]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[typescript]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[json]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    "[jsonc]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode"
+    },
+    
+    // Python Settings
+    "[python]": {
+      "editor.defaultFormatter": "ms-python.black-formatter",
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.organizeImports": "explicit"
+      }
+    },
+    "python.linting.enabled": true,
+    "python.linting.pylintEnabled": true,
+    "python.formatting.provider": "black",
+    "python.analysis.typeCheckingMode": "basic",
+    
+    // Markdown Settings
+    "[markdown]": {
+      "editor.defaultFormatter": "esbenp.prettier-vscode",
+      "editor.wordWrap": "on",
+      "editor.quickSuggestions": {
+        "comments": "on",
+        "strings": "on",
+        "other": "on"
+      }
+    },
+    "markdown.preview.fontSize": 14,
+    
+    // YAML Settings (Docker Compose)
+    "[yaml]": {
+      "editor.defaultFormatter": "redhat.vscode-yaml",
+      "editor.tabSize": 2
+    },
+    "yaml.schemas": {
+      "https://raw.githubusercontent.com/compose-spec/compose-spec/master/schema/compose-spec.json": [
+        "docker-compose*.yml"
+      ]
+    },
+    "yaml.customTags": [
+      "!encrypted/pkcs1-oaep scalar",
+      "!vault scalar"
+    ],
+    
+    // Shell Script Settings
+    "[shellscript]": {
+      "editor.defaultFormatter": "foxundermoon.shell-format"
+    },
+    "shellformat.useEditorConfig": true,
+    
+    // Git Settings
+    "git.enableSmartCommit": true,
+    "git.autofetch": true,
+    "git.confirmSync": false,
+    "git.defaultCloneDirectory": "${workspaceFolder}/../",
+    
+    // Terminal Settings
+    "terminal.integrated.defaultProfile.linux": "bash",
+    "terminal.integrated.fontSize": 13,
+    "terminal.integrated.scrollback": 10000,
+    "terminal.integrated.env.linux": {
+      "COMPOSE_FILE": "docker-compose.yml"
+    },
+    
+    // Search Settings
+    "search.exclude": {
+      "**/data": true,
+      "**/export": true,
+      "**/node_modules": true,
+      "**/.git": true,
+      "**/pdfjs-custom/backup": true
+    },
+    
+    // Explorer Settings
+    "explorer.confirmDelete": true,
+    "explorer.confirmDragAndDrop": false,
+    "explorer.sortOrder": "type",
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.patterns": {
+      "docker-compose.yml": "docker-compose.*.yml, .dockerignore",
+      "Dockerfile": "Dockerfile.*",
+      "README.md": "CHANGELOG.md, LICENSE, .gitignore",
+      "package.json": "package-lock.json, yarn.lock, .npmrc"
+    },
+    
+    // ESLint Settings
+    "eslint.validate": [
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact"
+    ],
+    "eslint.workingDirectories": [
+      {
+        "mode": "auto"
+      }
+    ],
+    
+    // Prettier Settings
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "es5",
+    "prettier.tabWidth": 2,
+    "prettier.semi": true,
+    "prettier.printWidth": 100,
+    
+    // Todo Tree Settings (for TODO comments)
+    "todo-tree.general.tags": [
+      "TODO",
+      "FIXME",
+      "NOTE",
+      "HACK",
+      "XXX",
+      "BUG",
+      "OPTIMIZE"
+    ],
+    "todo-tree.regex.regex": "(//|#|<!--|;|/\\*|^|^\\s*(-|\\d+.))\\s*($TAGS)",
+    
+    // GitLens Settings
+    "gitlens.codeLens.enabled": true,
+    "gitlens.currentLine.enabled": true,
+    "gitlens.hovers.currentLine.over": "line",
+    
+    // PDF.js Development Specific
+    "javascript.suggest.names": true,
+    "javascript.suggest.paths": true,
+    "javascript.updateImportsOnFileMove.enabled": "always",
+    
+    // Docker Container Development
+    "remote.containers.defaultExtensions": [
+      "ms-python.python",
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode"
+    ],
+    
+    // Spell Checker
+    "cSpell.words": [
+      "paperless",
+      "pdfjs",
+      "gotenberg",
+      "tika",
+      "postgres",
+      "redis",
+      "quran",
+      "tajweed",
+      "hadith",
+      "dakwah",
+      "dockercompose",
+      "webserver"
+    ],
+    "cSpell.enabled": true,
+    "cSpell.language": "en,en-US",
+    
+    // Live Server (for testing static HTML)
+    "liveServer.settings.port": 5500,
+    "liveServer.settings.root": "/",
+    "liveServer.settings.CustomBrowser": "chrome",
+    
+    // Error Lens
+    "errorLens.enabledDiagnosticLevels": [
+      "error",
+      "warning"
+    ],
+    "errorLens.excludeBySource": [
+      "eslint(prettier/prettier)"
+    ]
+  },
+  "extensions": {
+    "recommendations": [
+      // Docker Development
+      "ms-azuretools.vscode-docker",
+      "ms-vscode-remote.remote-containers",
+      
+      // JavaScript/TypeScript
+      "dbaeumer.vscode-eslint",
+      "esbenp.prettier-vscode",
+      "xabikos.javascriptsnippets",
+      "formulahendry.auto-rename-tag",
+      "bradlc.vscode-tailwindcss",
+      
+      // Python (for Paperless backend)
+      "ms-python.python",
+      "ms-python.vscode-pylance",
+      "ms-python.black-formatter",
+      "ms-python.isort",
+      
+      // Git
+      "eamodio.gitlens",
+      "mhutchie.git-graph",
+      "donjayamanne.githistory",
+      
+      // YAML/Config
+      "redhat.vscode-yaml",
+      "tamasfe.even-better-toml",
+      
+      // Markdown
+      "yzhang.markdown-all-in-one",
+      "davidanson.vscode-markdownlint",
+      "bierner.markdown-preview-github-styles",
+      
+      // Shell Scripts
+      "foxundermoon.shell-format",
+      "timonwong.shellcheck",
+      
+      // Productivity
+      "gruntfuggly.todo-tree",
+      "streetsidesoftware.code-spell-checker",
+      "usernamehw.errorlens",
+      "wayou.vscode-todo-highlight",
+      
+      // PDF/Document Viewing
+      "tomoki1207.pdf",
+      
+      // Live Server (testing)
+      "ritwickdey.liveserver",
+      
+      // Code Quality
+      "sonarsource.sonarlint-vscode",
+      "editorconfig.editorconfig",
+      
+      // GitHub
+      "github.vscode-pull-request-github",
+      "github.copilot",
+      "github.copilot-chat",
+      
+      // REST API Testing
+      "humao.rest-client",
+      
+      // JSON
+      "eriklynd.json-tools",
+      
+      // Color Picker
+      "anseki.vscode-color",
+      
+      // Path Intellisense
+      "christian-kohler.path-intellisense",
+      
+      // File Icons
+      "vscode-icons-team.vscode-icons"
+    ]
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [
+      {
+        "name": "Docker: Attach to Python",
+        "type": "python",
+        "request": "attach",
+        "connect": {
+          "host": "localhost",
+          "port": 5678
+        },
+        "pathMappings": [
+          {
+            "localRoot": "${workspaceFolder}",
+            "remoteRoot": "/usr/src/paperless"
+          }
+        ]
+      },
+      {
+        "name": "Docker: Attach to Node",
+        "type": "node",
+        "request": "attach",
+        "port": 9229,
+        "address": "localhost",
+        "restart": true,
+        "sourceMaps": true,
+        "localRoot": "${workspaceFolder}",
+        "remoteRoot": "/usr/src/paperless",
+        "protocol": "inspector"
+      }
+    ]
+  },
+  "tasks": {
+    "version": "2.0.0",
+    "tasks": [
+      {
+        "label": "🚀 Start Development Environment",
+        "type": "shell",
+        "command": "./scripts/setup.sh",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "new"
+        },
+        "group": {
+          "kind": "build",
+          "isDefault": true
+        }
+      },
+      {
+        "label": "🔨 Build Containers",
+        "type": "shell",
+        "command": "docker compose build --no-cache",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "▶️ Start Containers",
+        "type": "shell",
+        "command": "docker compose up -d",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "⏹️ Stop Containers",
+        "type": "shell",
+        "command": "docker compose down",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "📋 View Logs",
+        "type": "shell",
+        "command": "docker compose logs -f webserver",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        },
+        "isBackground": true
+      },
+      {
+        "label": "🔄 Restart Webserver",
+        "type": "shell",
+        "command": "docker compose restart webserver",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "📦 Extract PDF.js",
+        "type": "shell",
+        "command": "docker compose exec webserver /usr/src/paperless/dev-scripts/extract-pdfjs.sh",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "🐚 Open Shell in Webserver",
+        "type": "shell",
+        "command": "docker compose exec webserver bash",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "🧹 Clean All (including volumes)",
+        "type": "shell",
+        "command": "docker compose down -v && docker system prune -af",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "🌐 Open Web UI",
+        "type": "shell",
+        "command": "xdg-open http://localhost:8003 || open http://localhost:8003",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "never"
+        }
+      },
+      {
+        "label": "📊 Docker Stats",
+        "type": "shell",
+        "command": "docker stats --no-stream $(docker compose ps -q)",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      },
+      {
+        "label": "🔍 Check Container Health",
+        "type": "shell",
+        "command": "docker compose ps",
+        "problemMatcher": [],
+        "presentation": {
+          "reveal": "always",
+          "panel": "dedicated"
+        }
+      }
+    ]
+  }
+}

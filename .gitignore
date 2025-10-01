@@ -1,0 +1,58 @@
+# Ignore data directories
+data/
+media/
+export/
+consume/
+pdfjs-custom/backup/
+
+# Ignore Docker volumes
+*.db
+*.db-wal
+*.db-shm
+
+# Ignore logs
+*.log
+logs/
+
+# Ignore environment files (contain secrets in production)
+.env
+*.env.local
+*.env.production
+
+# Ignore IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Ignore node modules (if any)
+node_modules/
+package-lock.json
+yarn.lock
+
+# Ignore Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Ignore temporary files
+*.tmp
+*.temp
+.cache/
+tmp/
+
+# Ignore OS files
+Thumbs.db
+.directory
+
+# Keep structure directories
+!pdfjs-custom/lib/.gitkeep
+!pdfjs-custom/config/.gitkeep
+!pdfjs-custom/backup/.gitkeep
+!consume/.gitkeep
+!export/.gitkeep
+!assets/.gitkeep
